@@ -26,8 +26,8 @@ def PyDriveAuthentication(gauth):
 
 
 # Retrieve the latest file in the CSV File directory
-def SendToGoogleDrive(FolderID, drive):
-    GoogleSheetFile = max(glob.iglob('CSVFile/*.csv'), key=os.path.getctime)
+def SendToGoogleDrive(FolderID, drive, directory):
+    GoogleSheetFile = max(glob.iglob(os.path.join(directory, '*.csv')), key=os.path.getctime)
     file1 = drive.CreateFile({"parents": [{"kind": "drive#fileLink", "id": FolderID}]})
     file1.SetContentFile(GoogleSheetFile)
     file1.Upload()
@@ -41,8 +41,7 @@ def SeleniumScript(username1, password2):
 
     # Adjusting the options of the ChromeDriver
     chromeOptions = Options()
-    chromeOptions.add_experimental_option("prefs", {"download.default_directory": glob.glob('CSVFile/'),
-                                                    "safebrowsing.enabled": "false"})
+    chromeOptions.add_experimental_option("prefs", {"safebrowsing.enabled": "false"})
     driver = webdriver.Chrome(executable_path='Driver/chromedriver.exe', options=chromeOptions)
 
     driver.get('https://rutgers.zoom.us/')
@@ -111,5 +110,6 @@ def SeleniumScript(username1, password2):
     driver.find_element_by_xpath("//*[@id='btnExportParticipants']").click()
 
     drive = GoogleDrive(gauth)
+    directory = os.path.expanduser('~/Downloads')
     FolderID = '1xSP296-9AyZ32QONx4zfpv0ScDNOHKAW'
-    SendToGoogleDrive(FolderID, drive)
+    SendToGoogleDrive(FolderID, drive, directory)
