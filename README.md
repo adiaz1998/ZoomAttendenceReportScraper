@@ -22,4 +22,5 @@ The project uses the following libraries:
   <li>OS</li>
 <br>
 A selenium script has been encapsulated into a function that utilizes the Chromedriver.exe automation software to access the http://www.rutgers.zoom.us website. The user must input their Rutgers netID and password in a Tkinter GUI, which will be passed on as arguments to the selenium function. If it's the first time the user has accessed the application, they will be redirected to Google where they must authenicate the application to access their Google Drive, as part of PyDrive. Their credentials will be stored in a text file, so the authentication process won't loop. The script will then be executed on ChromeDriver and an attendance report will be downloaded onto the user's Downloads folder. A function has been developed that accesses the recent .CSV file from the Downloads folder using functions from bot the glob & OS libraries where they will be finally uploaded into a folder on Google Drive in which all members of the executive board have access to. 
-
+<br>
+Additionally, the python application was converted as an .exe file using PyInstaller 4.1 so that users who do not have Python installed can utilize it. 
