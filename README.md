@@ -2,4 +2,4 @@
 GUI application that automates the process of downloading attendance sheets from Zoom and uploading them on a shared Google Drive.
 
 
-(https://i.imgur.com/SnCOGna.png)
+<img src="https://i.imgur.com/SnCOGna.png"></img)
