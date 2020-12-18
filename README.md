@@ -19,3 +19,8 @@ The project uses the following libraries:
   <ul>Selenium</ul>
   <ul>Tkinter</ul>
   <ul>PyDrive</uL>
+  <ul>glob</ul>
+  <il>OS</ul>
+</li>
+
+
