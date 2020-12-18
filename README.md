@@ -15,11 +15,10 @@ This application was devleoped because as the VP of IT for ALPFA Rutgers-Newark,
 
 # How Does It Work?
 The project uses the following libraries:
-<li>
-  <ul>Selenium</ul>
-  <ul>Tkinter</ul>
-  <ul>PyDrive</uL>
-  <ul>glob</ul>
-  <il>OS</ul></li>
+  <li>Selenium</li>
+  <li>Tkinter</li>
+  <li>PyDrive</li>
+  <li>glob</li>
+  <li>OS</li>
 
 
