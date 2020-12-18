@@ -20,7 +20,6 @@ The project uses the following libraries:
   <ul>Tkinter</ul>
   <ul>PyDrive</uL>
   <ul>glob</ul>
-  <il>OS</ul>
-</li>
+  <il>OS</ul></li>
 
 
