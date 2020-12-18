@@ -54,8 +54,12 @@ class ZoomAttendanceReportScraper:
         else:
             self.Button.config(state='normal')
 
+
 # Assign the variable root to Tk() function
 root = Tk()
+
+# Assign favicon to GUI.py
+root.iconbitmap('favicon.ico')
 
 # Creates an object that references the Zoom Attendance Report Scraper class
 App = ZoomAttendanceReportScraper(root)
