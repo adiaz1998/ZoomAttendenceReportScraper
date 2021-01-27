@@ -4,7 +4,7 @@ from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 import glob
 import os
-
+import time
 
 def PyDriveAuthentication(gauth):
     # Load the saved client credentials from the file
@@ -26,8 +26,15 @@ def PyDriveAuthentication(gauth):
 
 
 # Retrieve the latest file in the CSV File directory
-def SendToGoogleDrive(FolderID, drive, directory):
-    GoogleSheetFile = max(glob.iglob(os.path.join(directory, '*.csv')), key=os.path.getctime)
+def SendToGoogleDrive(FolderID, drive):
+    GoogleSheetFile = ""
+    # If the CSVFile contains only 1 file, then execute this command
+    if len(os.listdir(os.path.dirname(__file__) + "\CSVFile")) == 1:
+        for file in glob.glob('CSVFile/*.csv'):
+            GoogleSheetFile = file
+    # If the CSV contains more than 1 file, retrieve the most recent file
+    else:
+        GoogleSheetFile = max(glob.iglob('CSVFile/*.csv'), key=os.path.getctime)
     file1 = drive.CreateFile({"parents": [{"kind": "drive#fileLink", "id": FolderID}]})
     file1.SetContentFile(GoogleSheetFile)
     file1.Upload()
@@ -41,7 +48,9 @@ def SeleniumScript(username1, password2):
 
     # Adjusting the options of the ChromeDriver
     chromeOptions = Options()
-    chromeOptions.add_experimental_option("prefs", {"safebrowsing.enabled": "false"})
+    chromeOptions.add_experimental_option("prefs",
+                                          {"download.default_directory": os.path.dirname(__file__) + "\CSVFile",
+                                           "safebrowsing.enabled": "false"})
     driver = webdriver.Chrome(executable_path='Driver/chromedriver.exe', options=chromeOptions)
 
     driver.get('https://rutgers.zoom.us/')
@@ -79,7 +88,7 @@ def SeleniumScript(username1, password2):
         Command2 = "')]"
         FullCommand = Command1 + newday + Command2
         driver.find_element_by_xpath(FullCommand).click()
-    # If the day in the calendar web app is less than 7, change the calendar to the previous month and execute this
+    # If the day in the calendar web app is less than 7, change the calen9dar to the previous month and execute this
     # script
     else:
         driver.find_element_by_xpath('//*[@id="ui-datepicker-div"]/div[1]/a[1]').click()
@@ -110,6 +119,8 @@ def SeleniumScript(username1, password2):
     driver.find_element_by_xpath("//*[@id='btnExportParticipants']").click()
 
     drive = GoogleDrive(gauth)
-    directory = os.path.expanduser('~/Downloads')
+
     FolderID = '1xSP296-9AyZ32QONx4zfpv0ScDNOHKAW'
-    SendToGoogleDrive(FolderID, drive, directory)
+
+    time.sleep(3)
+    SendToGoogleDrive(FolderID, drive)
