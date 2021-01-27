@@ -24,8 +24,6 @@ def PyDriveAuthentication(gauth):
     # Save credentials to file
     gauth.SaveCredentialsFile("mycreds.txt")
 
-
-# Retrieve the latest file in the CSV File directory
 def SendToGoogleDrive(FolderID, drive):
     GoogleSheetFile = ""
     # If the CSVFile contains only 1 file, then execute this command
@@ -38,7 +36,6 @@ def SendToGoogleDrive(FolderID, drive):
     file1 = drive.CreateFile({"parents": [{"kind": "drive#fileLink", "id": FolderID}]})
     file1.SetContentFile(GoogleSheetFile)
     file1.Upload()
-
 
 # The main Selenium script that requires user's inputted username & password to run
 def SeleniumScript(username1, password2):
