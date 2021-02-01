@@ -5,6 +5,7 @@ from pydrive.drive import GoogleDrive
 import glob
 import os
 import time
+from ConvertCSVtoExcel import *
 
 def PyDriveAuthentication(gauth):
     # Load the saved client credentials from the file
@@ -33,6 +34,10 @@ def SendToGoogleDrive(FolderID, drive):
     # If the CSV contains more than 1 file, retrieve the most recent file
     else:
         GoogleSheetFile = max(glob.iglob('CSVFile/*.csv'), key=os.path.getctime)
+
+    GoogleSheetFile = CSVtoExcel(GoogleSheetFile)
+    time.sleep(3)
+
     file1 = drive.CreateFile({"parents": [{"kind": "drive#fileLink", "id": FolderID}]})
     file1.SetContentFile(GoogleSheetFile)
     file1.Upload()
@@ -85,10 +90,10 @@ def SeleniumScript(username1, password2):
         Command2 = "')]"
         FullCommand = Command1 + newday + Command2
         driver.find_element_by_xpath(FullCommand).click()
-    # If the day in the calendar web app is less than 7, change the calen9dar to the previous month and execute this
+    # If the day in the calendar web app is less than 7, change the calendar to the previous month and execute this
     # script
     else:
-        driver.find_element_by_xpath('//*[@id="ui-datepicker-div"]/div[1]/a[1]').click()
+        # driver.find_element_by_xpath('//*[@id="ui-datepicker-div"]/div[1]/a[1]').click()
         newdate = 20 + day
         newdate = str(newdate)
         Command1 = "//*[@id='ui-datepicker-div']/table/tbody/tr/td/a[contains(text(),'"
@@ -112,6 +117,8 @@ def SeleniumScript(username1, password2):
     else:
         VerifyUniqueUsers.click()
 
+    driver.find_element_by_xpath('//*[@id="withMeetingHeader"]').click()
+
     # Find the button to export the attendance sheet and download it
     driver.find_element_by_xpath("//*[@id='btnExportParticipants']").click()
 
@@ -119,5 +126,6 @@ def SeleniumScript(username1, password2):
 
     FolderID = '1xSP296-9AyZ32QONx4zfpv0ScDNOHKAW'
 
-    time.sleep(3)
+    time.sleep(5)
+
     SendToGoogleDrive(FolderID, drive)
