@@ -93,7 +93,7 @@ def SeleniumScript(username1, password2):
     # If the day in the calendar web app is less than 7, change the calendar to the previous month and execute this
     # script
     else:
-        # driver.find_element_by_xpath('//*[@id="ui-datepicker-div"]/div[1]/a[1]').click()
+        driver.find_element_by_xpath('//*[@id="ui-datepicker-div"]/div[1]/a[1]').click()
         newdate = 20 + day
         newdate = str(newdate)
         Command1 = "//*[@id='ui-datepicker-div']/table/tbody/tr/td/a[contains(text(),'"
@@ -115,7 +115,7 @@ def SeleniumScript(username1, password2):
     if VerifyUniqueUsers:
         pass
     else:
-        VerifyUniqueUsers.click()
+        driver.find_element_by_xpath('//*[@id="selectUniqueDiv"][contains(@style,"display: block;")]').click()
 
     driver.find_element_by_xpath('//*[@id="withMeetingHeader"]').click()
 
